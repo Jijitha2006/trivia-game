@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #9face6);
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #start-mid-screen {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 items per row */
+  gap: 20px; /* spacing between items */
+  padding: 20px;
+  justify-items: center; /* center each item horizontally */
+  align-items: start;    /* align items to the top of each row */
+}
+
+    
+    #quiz-container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      width: 95%;
+      max-width: 600px;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    select, 
+input[type="checkbox"] {
+  margin: 10px 0;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Style the dropdown */
+select {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: all 0.2s ease-in-out;
+}
+
+select:hover {
+  border-color: #007bff;
+}
+
+select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+#start {
+  padding: 10px 20px;
+  margin: 10px 5px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  background: rgb(4, 159, 24);
+  color: #fff; /* white text for contrast */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* Hover effect */
+#start:hover {
+  background: rgb(4, 159, 24);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Active (click) effect */
+#start:active {
+  background: rgb(4, 159, 24);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  transform: translateY(0);
+}
+
+
+/* Style the checkbox */
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #007bff; /* modern browsers */
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+    button {
+      padding: 10px 20px;
+      margin: 10px 5px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      background: white;
+      color: black;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #ddd;
+    }
+    #question {
+      font-size: 20px;
+      margin: 20px 0;
+    }
+    .answers button {
+      width: 100%;
+      margin: 10px 0;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      background: white;
+      color: black;
+    }
+    .answers button.correct {
+      background-color: #d4f8d4 !important;
+      border-color: #2e7d32 !important;
+      color: #2e7d32 !important;
+    }
+    .answers button.incorrect {
+      background-color: #ffcccc !important;
+      border-color: #c62828 !important;
+      color: #c62828 !important;
+    }
+    #feedback {
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    #progress, #timer {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    #restart-btn {
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      color: white;
+    }
+    #exit-btn {
+      background: #ec0303;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div id="quiz-container">
+    
+
+    <!-- Start Screen -->
+    <div id="start-screen">
+      <h1>⚙ Quiz Game Settings</h1>
+
+      <div id="start-mid-screen">
+        <div>
+          <label>Level</label>
+          <select id="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium" selected>Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+        <div>
+          <label>Category</label>
+          <select id="category">
+            <option value="9">General Knowledge</option>
+            <option value="17">Science & Nature</option>
+            <option value="23">History</option>
+            <option value="21">Sports</option>
+            <option value="22">Geography</option>
+          </select>
+        </div>
+        <div>
+          <label>Type</label>
+          <select id="qtype">
+            <option value="multiple" selected>Multiple Choice</option>
+            <option value="boolean">True / False</option>
+          </select>
+        </div>
+        <div>
+          <label>Timer</label>
+          <select id="timer-setting">
+            <option value="0">Off</option>
+            <option value="15">15 sec</option>
+            <option value="30">30 sec</option>
+          </select>
+        </div>
+      </div>
+      
+      
+      <div style="width: 100%; display: flex; align-items: center; justify-content: center;">
+        <label><input type="checkbox" id="show-explanations" checked> Show Correct Answer on Wrong</label>
+      </div>
+      <div>
+      <button id="start" onclick="startQuiz()">Start Quiz 🚀</button>
+      <a href="welcome.html">
+        <button id="exit-btn">Exit</button>
+      </a>
+    </div>
+     
+    </div>
+    
+
+    <!-- Quiz Screen -->
+    <div id="quiz-screen" style="display:none;">
+      <div id="progress"></div>
+      <div id="question"></div>
+      <div class="answers" id="answers"></div>
+      <div id="feedback"></div>
+      <div id="timer"></div>
+      <button id="exit-btn" onclick="backToStart()">Exit </button>
+    </div>
+
+    <!-- End Screen -->
+    <div id="end-screen" style="display:none;"></div>
+
+  </div>
+
+<script>
+  let allQuestions = []; // Array of arrays, one per level
+  let currentLevel = 0;
+  let questions = [], currentIndex = 0, totalScore = 0;
+  const totalLevels = 10;
+  const questionsPerLevel = 5;
+  let levelScore = 0;
+  let timerDuration = 0, timerId = null, showExplanations = true;
+
+  function decodeHtml(html) {
+    const txt = document.createElement('textarea');
+    txt.innerHTML = html;
+    return txt.value;
+  }
+
+  function startQuiz() {
+    const difficulty = document.getElementById("difficulty").value;
+    const category = document.getElementById("category").value;
+    const qtype = document.getElementById("qtype").value;
+    timerDuration = parseInt(document.getElementById("timer-setting").value);
+    showExplanations = document.getElementById("show-explanations").checked;
+
+    document.getElementById("start-screen").style.display = "none";
+    document.getElementById("quiz-screen").style.display = "block";
+
+    fetch(`https://opentdb.com/api.php?amount=${questionsPerLevel * totalLevels}&category=${category}&difficulty=${difficulty}&type=${qtype}`)
+      .then(res => res.json())
+      .then(data => {
+        allQuestions = chunkArray(data.results, questionsPerLevel);
+        currentLevel = 0;
+        totalScore = 0;
+        loadLevel(currentLevel);
+      });
+  }
+
+  function chunkArray(arr, chunkSize) {
+    const chunks = [];
+    for (let i = 0; i < arr.length; i += chunkSize) {
+      chunks.push(arr.slice(i, i + chunkSize));
+    }
+    return chunks;
+  }
+
+  function loadLevel(levelIndex) {
+    questions = allQuestions[levelIndex];
+    currentIndex = 0;
+    levelScore = 0;
+    document.getElementById("quiz-screen").style.display = "block";
+    document.getElementById("end-screen").style.display = "none";
+    showQuestion();
+  }
+
+  function showQuestion() {
+    const q = questions[currentIndex];
+    document.getElementById('question').textContent = `Level ${currentLevel + 1} - Q${currentIndex + 1}: ${decodeHtml(q.question)}`;
+    const answersDiv = document.getElementById('answers');
+    document.getElementById('feedback').textContent = '';
+    document.getElementById('progress').textContent = `Question ${currentIndex + 1} of ${questions.length}`;
+    answersDiv.innerHTML = '';
+    document.getElementById('timer').textContent = '';
+
+    const options = [...q.incorrect_answers.map(a => ({ text: a, correct: false })), { text: q.correct_answer, correct: true }];
+    shuffleArray(options);
+
+    options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.textContent = decodeHtml(opt.text);
+      btn.onclick = () => handleAnswer(btn, opt.correct, q.correct_answer);
+      answersDiv.appendChild(btn);
+    });
+
+    if (timerDuration > 0) {
+      let timeLeft = timerDuration;
+      document.getElementById('timer').textContent = `⏳ ${timeLeft}s`;
+      timerId = setInterval(() => {
+        timeLeft--;
+        document.getElementById('timer').textContent = `⏳ ${timeLeft}s`;
+        if (timeLeft <= 0) {
+          clearInterval(timerId);
+          document.getElementById('feedback').textContent = `⏰ Time's up!`;
+          markCorrectAnswer(q.correct_answer);
+          disableButtons();
+          setTimeout(nextQuestion, 1500);
+        }
+      }, 1000);
+    }
+  }
+
+  function handleAnswer(button, isCorrect, correctAnswer) {
+    clearInterval(timerId);
+    disableButtons();
+
+    if (isCorrect) {
+      button.classList.add('correct');
+      levelScore++;
+    
+    } else {
+      button.classList.add('incorrect');
+      if (showExplanations) {
+        
+      } else {
+        document.getElementById('feedback').textContent = "❌ Wrong!";
+      }
+      markCorrectAnswer(correctAnswer);
+    }
+
+    setTimeout(nextQuestion, 1500);
+  }
+
+  function markCorrectAnswer(correctAnswer) {
+    document.querySelectorAll('.answers button').forEach(btn => {
+      if (btn.textContent === decodeHtml(correctAnswer)) {
+        btn.classList.add('correct');
+      }
+    });
+  }
+
+  function disableButtons() {
+    document.querySelectorAll('.answers button').forEach(b => b.disabled = true);
+  }
+
+  function nextQuestion() {
+    currentIndex++;
+    if (currentIndex < questions.length) {
+      showQuestion();
+    } else {
+      if (levelScore === questionsPerLevel) {
+        totalScore += levelScore;
+        currentLevel++;
+        if (currentLevel < totalLevels) {
+          showLevelPassedScreen();
+        } else {
+          showFinalEndScreen();
+        }
+      } else {
+        showRetryLevelScreen();
+      }
+    }
+  }
+
+  function showLevelPassedScreen() {
+    document.getElementById("quiz-screen").style.display = "none";
+    const endScreen = document.getElementById("end-screen");
+    endScreen.style.display = "block";
+
+    const prevBtn = currentLevel > 1
+      ? `<button onclick="goToPreviousLevel()">⬅ Previous Level</button>`
+      : '';
+    const buttons = `
+      <p>Level ${currentLevel} Passed ✅</p>
+      <p>Score so far: <strong>${totalScore} / ${questionsPerLevel * totalLevels}</strong></p>
+      <button onclick="loadLevel(${currentLevel})">Next Level ▶</button>
+      ${prevBtn}
+      <button onclick="backToStart()">Restart </button>
+      <button onclick="backToStart()">Exit </button>
+    `;
+
+    endScreen.innerHTML = `
+      <h1>✅ Perfect Score!</h1>
+      ${buttons}
+    `;
+  }
+
+  function showRetryLevelScreen() {
+    document.getElementById("quiz-screen").style.display = "none";
+    const endScreen = document.getElementById("end-screen");
+    endScreen.style.display = "block";
+
+    const prevBtn = currentLevel > 0
+      ? `<button onclick="goToPreviousLevel()">⬅ Previous Level</button>`
+      : '';
+    endScreen.innerHTML = `
+      <h1>❌ Not All Answers Were Correct</h1>
+      <p>You must answer all 5 questions correctly to proceed.</p>
+      <p>Your score this level: <strong>${levelScore} / ${questionsPerLevel}</strong></p>
+      <button onclick="loadLevel(${currentLevel})">Retry Level </button>
+      ${prevBtn}
+      <button onclick="backToStart()">Exit </button>
+    `;
+  }
+
+  function showFinalEndScreen() {
+    document.getElementById("quiz-screen").style.display = "none";
+    const endScreen = document.getElementById("end-screen");
+    endScreen.style.display = "block";
+    endScreen.innerHTML = `
+      <h1>🎉 All 10 Levels Completed!</h1>
+      <p>Your Final Score: <strong>${totalScore} / ${questionsPerLevel * totalLevels}</strong></p>
+      <button onclick="goToPreviousLevel()">⬅ Previous Level</button>
+      <button onclick="backToStart()">Restart </button>
+      <button onclick="backToStart()">Exit </button>
+    `;
+  }
+
+  function goToPreviousLevel() {
+    if (currentLevel > 0) {
+      currentLevel -= 1;
+      loadLevel(currentLevel);
+    }
+  }
+
+  function backToStart() {
+    clearInterval(timerId);
+    document.getElementById("quiz-screen").style.display = "none";
+    document.getElementById("end-screen").style.display = "none";
+    document.getElementById("start-screen").style.display = "block";
+    allQuestions = [];
+    questions = [];
+    currentIndex = 0;
+    currentLevel = 0;
+    totalScore = 0;
+    levelScore = 0;
+  }
+
+  function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+  }
+</script>
+
+
+</body>
+</html>

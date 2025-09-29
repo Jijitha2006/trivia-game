@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trivia Game - Welcome</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .header h2 {
+      font-size: 28px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .buttons a {
+      text-decoration: none;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #ffffff;
+      color: #333;
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ffd700;
+      transform: translateY(-2px);
+    }
+
+    .welcome {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+    }
+
+    .welcome-card {
+      background-color: white;
+      padding: 50px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      text-align: center;
+      max-width: 600px;
+    }
+
+    .welcome-card h1 {
+      font-size: 42px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .welcome-card p {
+      font-size: 18px;
+      color: #666;
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .buttons {
+        margin-top: 10px;
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+
+      button {
+        flex: 1 1 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h2>Trivia Game</h2>
+    <div class="buttons">
+      <a href="help.html"><button>Help</button></a>
+      <a href="logout.html"><button>Logout</button></a>
+      <a href="start.html"><button>Start</button></a>
+    </div>
+  </div>
+
+  <div class="welcome">
+    <div class="welcome-card">
+      <h1>Welcome to the Trivia Challenge!</h1>
+      <p>Think you're smart? Prove it! Click Start to begin your journey through fun and tricky questions.</p>
+    </div>
+  </div>
+
+</body>
+</html>

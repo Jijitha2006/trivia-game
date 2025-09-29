@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz Game Help</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #9face6);
+      margin: 0; 
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      color: #222;
+    }
+    .help-wrapper {
+      max-width: 700px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+    .help-box {
+      background: white;
+      padding: 25px 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      line-height: 1.6;
+    }
+    .help-box h2 {
+      color: #4f46e5;
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-weight: 700;
+      font-size: 1.5rem;
+      border-bottom: 2px solid #e0e7ff;
+      padding-bottom: 8px;
+    }
+    .help-box p {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }
+    .help-box ul {
+      margin-left: 25px;
+      margin-bottom: 0;
+      list-style-type: disc;
+    }
+    .help-box ul li {
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+    .tip {
+      background: #d1e7dd;
+      border-left: 5px solid #0f5132;
+      padding: 12px 18px;
+      border-radius: 8px;
+      color: #0f5132;
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin-top: 10px;
+    }
+    .btn-back {
+      display: block;
+      margin: 30px auto 0;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      padding: 14px 30px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      text-align: center;
+      width: fit-content;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+    .btn-back:hover {
+      background: #6366f1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="help-wrapper">
+
+    <div class="help-box">
+      <h2>📚 Introduction</h2>
+      <p>Welcome to the Quiz Game! This guide will help you understand how to set up and play the quiz, so you get the best experience.</p>
+    </div>
+
+    <div class="help-box">
+      <h2>⚙️ Game Settings</h2>
+      <ul>
+        <!-- <li><strong>Number of Questions:</strong> Choose how many questions you want per level.</li> -->
+        <li><strong>Level:</strong> Pick from Easy, Medium, or Hard to match your skill level.</li>
+        <li><strong>Category:</strong> Select the topic you want questions from (e.g., History, Science).</li>
+        <li><strong>Type:</strong> Choose between Multiple Choice or True/False questions.</li>
+        <li><strong>Timer:</strong> Set a time limit per question or turn it off.</li>
+        <li><strong>Show Correct Answer:</strong> Decide if you want to see the correct answer when you get one wrong.</li>
+      </ul>
+    </div>
+
+    <div class="help-box">
+      <h2>🎯 How to Play</h2>
+      <ul>
+        <li>Answer all questions in the current level correctly to unlock the next level.</li>
+        <li>If you get any question wrong, you'll need to retry that level.</li>
+        <li>You can exit or restart the quiz at any time.</li>
+      </ul>
+      <div class="tip">💡 Tip: Take your time and read questions carefully, especially on harder levels!</div>
+    </div>
+
+    <div class="help-box">
+      <h2>🏁 Finishing the Quiz</h2>
+      <p>Complete all levels with perfect scores to finish the quiz .</p>
+      <p>You can review previous levels anytime or restart the game from the start screen.</p>
+    </div>
+
+    <a href="welcome.html" class="btn-back">Back </a>
+  </div>
+
+</body>
+</html>
